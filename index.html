@@ -35,6 +35,15 @@
 
   * { box-sizing: border-box; }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg); /* Garante que o fundo fora do app-root também seja escuro */
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Evita rolagem horizontal acidental no celular */
+  }
+
   .app-root {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
