@@ -1,0 +1,1622 @@
+<!-- Clube da Luta -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0c0a0a;
+    --bg-elev: #161010;
+    --card: #1b1414;
+    --card-border: #35201d;
+    --text: #f2ece7;
+    --text-dim: #a3908c;
+    --accent: #9e1b1b;
+    --accent-hover: #7d1414;
+    --accent-dim: #5c1010;
+    --accent-text: #fbeeea;
+    --belt-a: #b8271f;
+    --belt-b: #3a0e0a;
+    --jiu: #5cc8ff;
+    --muaythai: #ff8a3d;
+    --academia: #e8b23d;
+    --corrida: #6effb0;
+    --futebol: #b48cff;
+    --natacao: #4dd0e1;
+    --danger: #ff5a5f;
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; }
+
+  .app-root {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 84px;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+  }
+
+  /* LOGIN SCREEN */
+  .login-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: radial-gradient(circle at 50% 15%, #241010 0%, var(--bg) 65%);
+    position: relative;
+  }
+  .login-gear {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .login-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 22px rgba(158,27,27,0.45);
+  }
+  .login-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-top: 4px;
+    margin-bottom: 44px;
+  }
+  .login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .login-form-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: -4px;
+  }
+  .login-error {
+    font-size: 12.5px;
+    color: var(--danger);
+    margin-top: -4px;
+  }
+  .login-submit {
+    margin-top: 6px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(158,27,27,0.3);
+  }
+  .login-submit:active { transform: scale(0.98); }
+  .login-hint {
+    margin-top: 22px;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 20px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--card-border);
+    background: linear-gradient(180deg, #130f0f 0%, var(--bg) 100%);
+  }
+  .header .brand { display: flex; flex-direction: column; }
+  .header .brand .title {
+    font-size: 28px;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 16px rgba(158,27,27,0.35);
+  }
+  .header .brand .subtitle {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 2px;
+  }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-dim);
+  }
+  .icon-btn:active { transform: scale(0.94); }
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 30px;
+    padding: 4px 10px 4px 4px;
+    cursor: pointer;
+  }
+  .user-chip .avatar-sm {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #2a1717;
+    color: var(--belt-a);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+  }
+  .user-chip .uname { font-size: 12px; font-weight: 600; }
+
+  /* BELT BANNER */
+  .belt-banner {
+    margin: 18px 16px 4px;
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    background: linear-gradient(120deg, #241010 0%, #161010 55%);
+    border: 1px solid #442018;
+    position: relative;
+    overflow: hidden;
+  }
+  .belt-banner::before {
+    content: "";
+    position: absolute;
+    top: -40%; right: -20%;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(184,39,31,0.25) 0%, transparent 70%);
+  }
+  .belt-eyebrow {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--belt-a);
+    font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .belt-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: #fff;
+    margin-top: 4px;
+    line-height: 1;
+  }
+  .belt-stripe {
+    margin-top: 10px;
+    height: 10px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--belt-b), var(--belt-a), var(--belt-b));
+    box-shadow: 0 0 14px rgba(184,39,31,0.35);
+  }
+  .belt-meta {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+  .belt-meta b { color: var(--text); }
+  .belt-empty {
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 4px 2px;
+  }
+
+  /* TABS CONTENT */
+  .content { padding: 18px 16px 8px; flex: 1; }
+  .section-title {
+    font-size: 21px;
+    color: var(--text);
+    margin: 4px 0 12px;
+  }
+
+  /* REGISTRAR - logged user banner */
+  .reg-user-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+  }
+  .reg-user-banner .avatar-md {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #2a1717;
+    color: var(--belt-a);
+    border: 1.5px solid var(--accent-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .reg-user-banner .txt { flex: 1; }
+  .reg-user-banner .txt .l1 { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+  .reg-user-banner .txt .l2 { font-size: 15px; font-weight: 700; }
+
+  /* ACTIVITY GRID */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .activity-card {
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .activity-card .emoji { font-size: 24px; }
+  .activity-card .name { font-size: 11px; color: var(--text-dim); text-align: center; }
+  .activity-card.selected {
+    border-color: var(--sel-color, var(--accent));
+    background: #221515;
+  }
+  .activity-card.selected .name { color: var(--text); }
+
+  /* DURATION */
+  .field-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .duration-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .duration-chip {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-dim);
+  }
+  .duration-chip.selected {
+    background: #221515;
+    border-color: var(--accent);
+    color: var(--belt-a);
+  }
+  input[type="number"], input[type="date"], input[type="text"], input[type="email"] {
+    width: 100%;
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 18px;
+  }
+  input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+  select {
+    width: 100%;
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  select:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+  .filter-row { display: flex; gap: 10px; }
+  .filter-row select { flex: 1; }
+
+  .hist-summary {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .hist-summary b { color: var(--text); }
+
+  /* CHAT FLUTUANTE */
+  .chat-fab-wrap {
+    position: fixed;
+    bottom: 92px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    pointer-events: none;
+    z-index: 60;
+  }
+  .chat-fab {
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 8px 20px rgba(158,27,27,0.45);
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  .chat-fab:active { transform: scale(0.94); }
+  .chat-fab-badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    min-width: 20px; height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #ffce3d;
+    color: #241a02;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--bg);
+  }
+
+  .chat-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: flex-end;
+    z-index: 110;
+  }
+  .chat-panel {
+    background: var(--bg-elev);
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    height: 82vh;
+    border-radius: 22px 22px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--card-border);
+    flex-shrink: 0;
+  }
+  .chat-header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    flex: 1;
+  }
+  .chat-close {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim);
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-row { display: flex; margin-bottom: 8px; }
+  .chat-row.mine { justify-content: flex-end; }
+  .chat-bubble {
+    max-width: 78%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px 16px 16px 4px;
+    padding: 9px 12px;
+  }
+  .chat-bubble.mine {
+    background: var(--accent);
+    border-color: var(--accent);
+    border-radius: 16px 16px 4px 16px;
+  }
+  .chat-bubble-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--belt-a);
+    margin-bottom: 3px;
+  }
+  .chat-bubble-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .chat-bubble.mine .chat-bubble-text { color: var(--accent-text); }
+  .chat-bubble-img {
+    max-width: 100%;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+  }
+  .chat-bubble-time {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-align: right;
+  }
+  .chat-bubble.mine .chat-bubble-time { color: rgba(255,255,255,0.65); }
+
+  .chat-composer {
+    border-top: 1px solid var(--card-border);
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    flex-shrink: 0;
+  }
+  .chat-img-preview {
+    position: relative;
+    width: 70px;
+    margin-bottom: 8px;
+  }
+  .chat-img-preview img {
+    width: 70px; height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+  }
+  .chat-img-remove {
+    position: absolute;
+    top: -6px; right: -6px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--danger);
+    color: #fff;
+    font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .chat-composer-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chat-attach-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1;
+    margin-bottom: 0 !important;
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 22px;
+    padding: 10px 16px;
+  }
+  .chat-send-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .chat-send-btn.disabled { background: #362d2c; color: #877; cursor: default; }
+
+  .lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    padding: 24px;
+  }
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    border: none;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(158,27,27,0.3);
+  }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { background: #362d2c; color: #877; box-shadow: none; }
+
+  .toast {
+    position: fixed;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--accent);
+    color: var(--accent-text);
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* RANKING */
+  .toggle-row {
+    display: flex;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+    border: 1px solid var(--card-border);
+  }
+  .toggle-btn {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .toggle-btn.active { background: var(--accent); color: var(--accent-text); }
+
+  .rank-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .rank-pos {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    width: 28px;
+    text-align: center;
+    color: var(--text-dim);
+    padding-top: 2px;
+  }
+  .rank-row.pos-1 .rank-pos { color: var(--belt-a); }
+  .rank-row.pos-2 .rank-pos { color: #c8c8d0; }
+  .rank-row.pos-3 .rank-pos { color: #cd8a52; }
+  .rank-body { flex: 1; min-width: 0; }
+  .rank-name-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .rank-name { font-weight: 700; font-size: 14.5px; }
+  .rank-stars { font-size: 12px; color: var(--belt-a); white-space: nowrap; }
+  .rank-bar-track {
+    height: 6px;
+    background: #281f1e;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .rank-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    border-radius: 4px;
+  }
+  .rank-time { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+  .rank-breakdown { font-size: 11px; color: var(--text-dim); margin-top: 5px; line-height: 1.5; }
+  .rank-breakdown b { color: var(--text); font-weight: 600; }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .empty-state .big { font-size: 34px; margin-bottom: 8px; }
+
+  /* HISTORY */
+  .hist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .hist-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px;
+    background: var(--card);
+    flex: 0 0 auto;
+  }
+  .hist-body { flex: 1; min-width: 0; }
+  .hist-title { font-size: 14px; font-weight: 600; }
+  .hist-sub { font-size: 11.5px; color: var(--text-dim); margin-top: 2px; }
+  .hist-time { font-size: 12.5px; color: var(--text-dim); white-space: nowrap; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+    z-index: 40;
+  }
+  .nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 0;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .nav-btn .icon { font-size: 20px; }
+  .nav-btn.active { color: var(--belt-a); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    display: flex; align-items: flex-end;
+    z-index: 100;
+  }
+  .modal-sheet {
+    background: var(--bg-elev);
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 22px 22px 0 0;
+    padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+    max-height: 82vh;
+    overflow-y: auto;
+  }
+  .modal-title { font-size: 22px; margin-bottom: 4px; }
+  .modal-subtitle { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+  .friend-edit-block {
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: var(--card);
+  }
+  .friend-edit-block .fld-label { font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+  .friend-edit-block input { margin-bottom: 10px; background: #201818; }
+  .friend-edit-block input:last-child { margin-bottom: 0; }
+  .modal-close {
+    margin-top: 6px;
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    color: var(--accent-text);
+  }
+  .modal-logout {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .loading-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; color: var(--text-dim); font-size: 14px;
+  }
+</style>
+
+<div id="root" class="app-root">
+  <div class="loading-screen">Carregando o clube…</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore, doc, getDoc, setDoc,
+  collection, addDoc, getDocs, query, orderBy, onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// ⚠️ COLE AQUI o firebaseConfig copiado do console do Firebase (Configurações do projeto > Seus apps)
+const firebaseConfig = {
+  apiKey: "AIzaSyB7QsV_EhQHCVPVmqrOyrR9dMiWf76GecE",
+  authDomain: "clube-da-luta-9f3b5.firebaseapp.com",
+  projectId: "clube-da-luta-9f3b5",
+  storageBucket: "clube-da-luta-9f3b5.firebasestorage.app",
+  messagingSenderId: "29228726364",
+  appId: "1:29228726364:web:bc8848c21b1f02d23f8e99",
+  measurementId: "G-3HZFY38WC0"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+
+(function() {
+  const ACTIVITIES = [
+    { key: 'jiu', label: 'Jiu-Jitsu', emoji: '🥋', color: 'var(--jiu)' },
+    { key: 'muaythai', label: 'Muay Thai', emoji: '🥊', color: 'var(--muaythai)' },
+    { key: 'academia', label: 'Academia', emoji: '🏋️', color: 'var(--academia)' },
+    { key: 'corrida', label: 'Corrida', emoji: '🏃', color: 'var(--corrida)' },
+    { key: 'futebol', label: 'Futebol', emoji: '⚽', color: 'var(--futebol)' },
+    { key: 'natacao', label: 'Surf/Natação', emoji: '🏄', color: 'var(--natacao)' },
+  ];
+  const DEFAULT_FRIENDS = [
+    { name: 'Amigo 1', email: '' },
+    { name: 'Amigo 2', email: '' },
+    { name: 'Amigo 3', email: '' },
+    { name: 'Amigo 4', email: '' },
+    { name: 'Amigo 5', email: '' },
+  ];
+
+  let state = {
+    friends: DEFAULT_FRIENDS.map(f => ({...f})),
+    activities: [],
+    messages: [],
+    loginUser: null,
+    loginEmailInput: '',
+    loginError: '',
+    tab: 'ranking',
+    selectedActivity: null,
+    selectedDuration: 45,
+    customDuration: '',
+    date: todayStr(),
+    rankMode: 'semana',
+    histPersonFilter: 'all',
+    histMonthFilter: 'all',
+    loaded: false,
+    showSettings: false,
+    showSwitchUser: false,
+    chatOpen: false,
+    chatText: '',
+    chatImage: null,
+    chatSending: false,
+    lastSeenChat: 0,
+    lightboxImage: null,
+  };
+
+  function todayStr() {
+    const d = new Date();
+    return d.toISOString().slice(0, 10);
+  }
+
+  function mondayOf(dateObj) {
+    const d = new Date(dateObj);
+    const day = d.getDay();
+    const diff = (day === 0 ? -6 : 1) - day;
+    d.setDate(d.getDate() + diff);
+    d.setHours(0,0,0,0);
+    return d;
+  }
+
+  function isThisWeek(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    const monday = mondayOf(new Date());
+    const sunday = new Date(monday); sunday.setDate(sunday.getDate() + 6); sunday.setHours(23,59,59,999);
+    return d >= monday && d <= sunday;
+  }
+
+  function normEmail(e) { return (e || '').trim().toLowerCase(); }
+
+  function loadLocal(key) {
+    try { return localStorage.getItem(key); } catch(e) { return null; }
+  }
+  function saveLocal(key, val) {
+    try { localStorage.setItem(key, val); } catch(e) { /* not critical */ }
+  }
+  function removeLocal(key) {
+    try { localStorage.removeItem(key); } catch(e) { /* not critical */ }
+  }
+
+  async function loadData() {
+    try {
+      const snap = await getDoc(doc(db, 'meta', 'friends'));
+      if (snap.exists() && snap.data().list) state.friends = snap.data().list;
+    } catch(e) { console.error('erro ao carregar amigos', e); }
+
+    try {
+      const u = loadLocal('loginEmail');
+      if (u) {
+        const idx = state.friends.findIndex(f => normEmail(f.email) === normEmail(u));
+        if (idx >= 0) state.loginUser = idx;
+      }
+    } catch(e) { /* not logged in yet */ }
+
+    const ls = loadLocal('lastSeenChat');
+    if (ls) state.lastSeenChat = parseInt(ls, 10) || 0;
+
+    // Escuta em tempo real: treinos e mensagens atualizam sozinhos pra todo mundo
+    onSnapshot(collection(db, 'activities'), snap => {
+      state.activities = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      if (state.loaded) render();
+    }, err => console.error('erro ao ouvir treinos', err));
+
+    onSnapshot(query(collection(db, 'messages'), orderBy('createdAt', 'asc')), snap => {
+      state.messages = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if (state.loaded) render();
+      const box = document.getElementById('chatMessages');
+      if (box) box.scrollTop = box.scrollHeight;
+    }, err => console.error('erro ao ouvir mensagens', err));
+
+    state.loaded = true;
+    render();
+  }
+
+  async function saveFriends() {
+    try { await setDoc(doc(db, 'meta', 'friends'), { list: state.friends }); }
+    catch(e) { console.error('erro ao salvar dados dos amigos', e); showToast('Erro ao salvar. Confira o firebaseConfig.'); }
+  }
+
+  async function saveLoginEmail(email) {
+    saveLocal('loginEmail', email);
+  }
+
+  async function clearLoginEmail() {
+    removeLocal('loginEmail');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  async function doLogin() {
+    const email = normEmail(state.loginEmailInput);
+    if (!email || !email.includes('@')) {
+      state.loginError = 'Digite um e-mail válido.';
+      render();
+      return;
+    }
+    const idx = state.friends.findIndex(f => normEmail(f.email) === email);
+    if (idx < 0) {
+      state.loginError = 'Esse e-mail não está cadastrado no clube. Peça para configurar em ⚙️.';
+      render();
+      return;
+    }
+    state.loginUser = idx;
+    state.loginError = '';
+    await saveLoginEmail(state.friends[idx].email);
+    render();
+  }
+
+  async function doLogout() {
+    state.loginUser = null;
+    state.loginEmailInput = '';
+    state.showSwitchUser = false;
+    await clearLoginEmail();
+    render();
+  }
+
+  async function registerTraining() {
+    if (state.selectedActivity === null || state.loginUser === null) return;
+    const duration = state.customDuration ? parseInt(state.customDuration, 10) : state.selectedDuration;
+    if (!duration || duration <= 0) return;
+    const entry = {
+      userIdx: state.loginUser,
+      type: state.selectedActivity,
+      minutes: duration,
+      date: state.date,
+      createdAt: Date.now(),
+    };
+    try {
+      await addDoc(collection(db, 'activities'), entry);
+    } catch(e) {
+      console.error('erro ao salvar treino', e);
+      showToast('Erro ao salvar. Confira o firebaseConfig.');
+      return;
+    }
+    const actInfo = ACTIVITIES.find(a => a.key === entry.type);
+    showToast('⭐ Treino registrado! ' + actInfo.emoji + ' ' + actInfo.label);
+    state.selectedActivity = null;
+    state.customDuration = '';
+    render();
+  }
+
+  function compressImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxW = 900;
+          const scale = Math.min(1, maxW / img.width);
+          const w = Math.max(1, Math.round(img.width * scale));
+          const h = Math.max(1, Math.round(img.height * scale));
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.65));
+        };
+        img.onerror = () => reject(new Error('Não foi possível ler a imagem'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('Não foi possível ler o arquivo'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function pickChatImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async () => {
+      if (!input.files || !input.files[0]) return;
+      try {
+        state.chatImage = await compressImage(input.files[0]);
+        render();
+      } catch (e) {
+        showToast('Não deu pra carregar essa foto');
+      }
+    };
+    input.click();
+  }
+
+  function unreadChatCount() {
+    return state.messages.filter(m =>
+      m.createdAt > state.lastSeenChat && m.from !== state.loginUser
+    ).length;
+  }
+
+  async function markChatSeen() {
+    state.lastSeenChat = Date.now();
+    saveLocal('lastSeenChat', String(state.lastSeenChat));
+  }
+
+  async function openChat() {
+    state.chatOpen = true;
+    await markChatSeen();
+    render();
+    const box = document.getElementById('chatMessages');
+    if (box) box.scrollTop = box.scrollHeight;
+  }
+
+  function closeChat() {
+    state.chatOpen = false;
+    render();
+  }
+
+  async function sendChatMessage() {
+    const text = state.chatText.trim();
+    if ((!text && !state.chatImage) || state.loginUser === null || state.chatSending) return;
+    state.chatSending = true;
+    const entry = {
+      from: state.loginUser,
+      text: text.slice(0, 300),
+      image: state.chatImage || null,
+      createdAt: Date.now(),
+    };
+    try {
+      await addDoc(collection(db, 'messages'), entry);
+    } catch(e) {
+      console.error('erro ao enviar mensagem', e);
+      showToast('Erro ao enviar. Confira o firebaseConfig.');
+    }
+    state.chatText = '';
+    state.chatImage = null;
+    state.chatSending = false;
+    await markChatSeen();
+    render();
+    const box = document.getElementById('chatMessages');
+    if (box) box.scrollTop = box.scrollHeight;
+  }
+
+  function statsFor(mode) {
+    const totals = state.friends.map((f, idx) => ({ idx, name: f.name, minutes: 0, stars: 0, byType: {} }));
+    state.activities.forEach(act => {
+      if (mode === 'semana' && !isThisWeek(act.date)) return;
+      const t = totals[act.userIdx];
+      if (!t) return;
+      t.minutes += act.minutes;
+      t.stars += 1;
+      t.byType[act.type] = (t.byType[act.type] || 0) + 1;
+    });
+    totals.sort((a,b) => b.minutes - a.minutes);
+    return totals;
+  }
+
+  function weeklyLeader() {
+    const totals = statsFor('semana');
+    if (!totals.length || totals[0].minutes === 0) return null;
+    return totals[0];
+  }
+
+  function fmtMinutes(m) {
+    if (m < 60) return m + ' min';
+    const h = Math.floor(m/60), r = m % 60;
+    return h + 'h' + (r ? (r + 'min') : '');
+  }
+
+  function fmtDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    const opts = { day: '2-digit', month: 'short' };
+    return d.toLocaleDateString('pt-BR', opts).replace('.', '');
+  }
+
+  function fmtDateTime(ts) {
+    const d = new Date(ts);
+    const datePart = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace('.', '');
+    const timePart = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    return datePart + ', ' + timePart;
+  }
+
+  function availableMonths() {
+    const set = new Set();
+    state.activities.forEach(a => set.add(a.date.slice(0, 7)));
+    return Array.from(set).sort().reverse();
+  }
+
+  function monthLabel(key) {
+    const parts = key.split('-');
+    const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, 1);
+    const label = d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    return label.charAt(0).toUpperCase() + label.slice(1);
+  }
+
+  function breakdownText(byType) {
+    const parts = ACTIVITIES
+      .filter(a => byType[a.key])
+      .map(a => a.label + ' ' + byType[a.key] + 'x');
+    return parts.join(' · ');
+  }
+
+  function el(tag, attrs, children) {
+    const e = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(k => {
+      if (k === 'class') e.className = attrs[k];
+      else if (k === 'style') e.style.cssText = attrs[k];
+      else if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]);
+      else e.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(c => {
+      if (c === null || c === undefined) return;
+      if (typeof c === 'string') e.appendChild(document.createTextNode(c));
+      else e.appendChild(c);
+    });
+    return e;
+  }
+
+  function initials(name) {
+    return (name || '?').trim().slice(0,2).toUpperCase() || '?';
+  }
+
+  function renderLogin() {
+    const wrap = el('div', { class: 'login-screen' }, [
+      el('div', {
+        class: 'login-gear',
+        onclick: () => { state.showSettings = true; render(); }
+      }, ['⚙️']),
+      el('div', { class: 'login-logo' }, ['CLUBE DA LUTA']),
+      el('div', { class: 'login-sub' }, ['5 guerreiros, 1 missão']),
+    ]);
+    const form = el('div', { class: 'login-form' }, []);
+    form.appendChild(el('div', { class: 'login-form-label' }, ['Seu e-mail']));
+    const emailInput = el('input', {
+      type: 'email', placeholder: 'voce@email.com', value: state.loginEmailInput,
+      oninput: (e) => { state.loginEmailInput = e.target.value; },
+      onkeydown: (e) => { if (e.key === 'Enter') doLogin(); },
+      style: 'margin-bottom:0'
+    });
+    form.appendChild(emailInput);
+    if (state.loginError) {
+      form.appendChild(el('div', { class: 'login-error' }, [state.loginError]));
+    }
+    form.appendChild(el('button', { class: 'login-submit', onclick: doLogin }, ['Entrar']));
+    wrap.appendChild(form);
+    wrap.appendChild(el('div', { class: 'login-hint' }, [
+      'Use o e-mail cadastrado pelo grupo. Para cadastrar ou editar e-mails, toque na engrenagem no canto superior.'
+    ]));
+    return wrap;
+  }
+
+  function renderHeader() {
+    const currentName = state.loginUser !== null ? state.friends[state.loginUser].name : '';
+    return el('div', { class: 'header' }, [
+      el('div', { class: 'brand' }, [
+        el('div', { class: 'title' }, ['CLUBE DA LUTA']),
+        el('div', { class: 'subtitle' }, ['5 guerreiros, 1 missão']),
+      ]),
+      el('div', { class: 'header-actions' }, [
+        el('div', {
+          class: 'user-chip',
+          onclick: () => { state.showSwitchUser = true; render(); }
+        }, [
+          el('div', { class: 'avatar-sm' }, [initials(currentName)]),
+          el('div', { class: 'uname' }, [currentName]),
+        ]),
+        el('div', { class: 'icon-btn', onclick: () => { state.showSettings = true; render(); } }, ['⚙️']),
+      ]),
+    ]);
+  }
+
+  function renderBeltBanner() {
+    const leader = weeklyLeader();
+    if (!leader) {
+      return el('div', { class: 'belt-banner' }, [
+        el('div', { class: 'belt-eyebrow' }, ['🏆 CINTURÃO DA SEMANA']),
+        el('div', { class: 'belt-empty' }, ['Ninguém treinou essa semana ainda. Bora ser o primeiro!']),
+      ]);
+    }
+    return el('div', { class: 'belt-banner' }, [
+      el('div', { class: 'belt-eyebrow' }, ['🏆 CINTURÃO DA SEMANA']),
+      el('div', { class: 'belt-name' }, [leader.name]),
+      el('div', { class: 'belt-stripe' }),
+      el('div', { class: 'belt-meta' }, [
+        el('b', {}, [fmtMinutes(leader.minutes)]), ' treinados · ',
+        el('b', {}, [String(leader.stars)]), ' estrelas essa semana'
+      ]),
+    ]);
+  }
+
+  function renderRegistrar() {
+    const wrap = el('div', {}, []);
+    const name = state.friends[state.loginUser].name;
+
+    wrap.appendChild(el('div', { class: 'reg-user-banner' }, [
+      el('div', { class: 'avatar-md' }, [initials(name)]),
+      el('div', { class: 'txt' }, [
+        el('div', { class: 'l1' }, ['Registrando treino de']),
+        el('div', { class: 'l2' }, [name]),
+      ]),
+    ]));
+
+    wrap.appendChild(el('div', { class: 'field-label' }, ['Qual foi o treino?']));
+    const grid = el('div', { class: 'activity-grid' }, []);
+    ACTIVITIES.forEach(act => {
+      const selected = state.selectedActivity === act.key;
+      const card = el('div', {
+        class: 'activity-card' + (selected ? ' selected' : ''),
+        style: selected ? ('--sel-color:' + act.color) : '',
+        onclick: () => { state.selectedActivity = act.key; render(); }
+      }, [
+        el('div', { class: 'emoji' }, [act.emoji]),
+        el('div', { class: 'name' }, [act.label]),
+      ]);
+      grid.appendChild(card);
+    });
+    wrap.appendChild(grid);
+
+    wrap.appendChild(el('div', { class: 'field-label' }, ['Duração']));
+    const durRow = el('div', { class: 'duration-row' }, []);
+    [30, 45, 60, 90].forEach(min => {
+      const selected = !state.customDuration && state.selectedDuration === min;
+      durRow.appendChild(el('div', {
+        class: 'duration-chip' + (selected ? ' selected' : ''),
+        onclick: () => { state.selectedDuration = min; state.customDuration = ''; render(); }
+      }, [min + ' min']));
+    });
+    wrap.appendChild(durRow);
+
+    const customInput = el('input', {
+      type: 'number', placeholder: 'Outra duração (minutos)', min: '1',
+      value: state.customDuration,
+      oninput: (e) => { state.customDuration = e.target.value; }
+    });
+    wrap.appendChild(customInput);
+
+    wrap.appendChild(el('div', { class: 'field-label' }, ['Data']));
+    const dateInput = el('input', {
+      type: 'date', value: state.date,
+      oninput: (e) => { state.date = e.target.value; }
+    });
+    wrap.appendChild(dateInput);
+
+    const canSubmit = state.selectedActivity !== null;
+    const btn = el('button', {
+      class: 'submit-btn',
+      onclick: registerTraining,
+    }, ['⭐ Registrar treino']);
+    if (!canSubmit) btn.disabled = true;
+    wrap.appendChild(btn);
+
+    return wrap;
+  }
+
+  function renderRanking() {
+    const wrap = el('div', {}, []);
+    wrap.appendChild(renderBeltBanner());
+    wrap.appendChild(el('h2', { class: 'section-title', style: 'margin-top:18px' }, ['Ranking']));
+
+    const toggle = el('div', { class: 'toggle-row' }, []);
+    ['semana', 'geral'].forEach(mode => {
+      toggle.appendChild(el('div', {
+        class: 'toggle-btn' + (state.rankMode === mode ? ' active' : ''),
+        onclick: () => { state.rankMode = mode; render(); }
+      }, [mode === 'semana' ? 'Esta semana' : 'Geral']));
+    });
+    wrap.appendChild(toggle);
+
+    const totals = statsFor(state.rankMode);
+    const maxMin = Math.max(1, ...totals.map(t => t.minutes));
+
+    if (totals.every(t => t.minutes === 0)) {
+      wrap.appendChild(el('div', { class: 'empty-state' }, [
+        el('div', { class: 'big' }, ['💤']),
+        el('div', {}, ['Ninguém registrou treino ainda por aqui.']),
+      ]));
+      return wrap;
+    }
+
+    totals.forEach((t, i) => {
+      const pos = i + 1;
+      const bkd = breakdownText(t.byType);
+      const row = el('div', { class: 'rank-row pos-' + pos }, [
+        el('div', { class: 'rank-pos' }, [pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : String(pos)]),
+        el('div', { class: 'rank-body' }, [
+          el('div', { class: 'rank-name-row' }, [
+            el('div', { class: 'rank-name' }, [t.name]),
+            el('div', { class: 'rank-stars' }, ['⭐ ' + t.stars]),
+          ]),
+          el('div', { class: 'rank-bar-track' }, [
+            el('div', { class: 'rank-bar-fill', style: 'width:' + (t.minutes / maxMin * 100) + '%' }, []),
+          ]),
+          el('div', { class: 'rank-time' }, [fmtMinutes(t.minutes) + ' de treino']),
+          bkd ? el('div', { class: 'rank-breakdown' }, [bkd]) : null,
+        ]),
+      ]);
+      wrap.appendChild(row);
+    });
+
+    return wrap;
+  }
+
+  function renderHistorico() {
+    const wrap = el('div', {}, []);
+    wrap.appendChild(el('h2', { class: 'section-title' }, ['Histórico']));
+
+    if (!state.activities.length) {
+      wrap.appendChild(el('div', { class: 'empty-state' }, [
+        el('div', { class: 'big' }, ['📋']),
+        el('div', {}, ['Nenhum treino registrado ainda.']),
+      ]));
+      return wrap;
+    }
+
+    const filterRow = el('div', { class: 'filter-row' }, []);
+    const personSelect = el('select', {
+      onchange: (e) => { state.histPersonFilter = e.target.value; render(); }
+    }, []);
+    personSelect.appendChild(el('option', { value: 'all' }, ['Todos']));
+    state.friends.forEach((f, idx) => {
+      personSelect.appendChild(el('option', { value: String(idx) }, [f.name]));
+    });
+    personSelect.value = state.histPersonFilter;
+    filterRow.appendChild(personSelect);
+
+    const monthSelect = el('select', {
+      onchange: (e) => { state.histMonthFilter = e.target.value; render(); }
+    }, []);
+    monthSelect.appendChild(el('option', { value: 'all' }, ['Todos os meses']));
+    availableMonths().forEach(mk => {
+      monthSelect.appendChild(el('option', { value: mk }, [monthLabel(mk)]));
+    });
+    monthSelect.value = state.histMonthFilter;
+    filterRow.appendChild(monthSelect);
+
+    wrap.appendChild(filterRow);
+
+    let filtered = state.activities.filter(act => {
+      if (state.histPersonFilter !== 'all' && String(act.userIdx) !== state.histPersonFilter) return false;
+      if (state.histMonthFilter !== 'all' && act.date.slice(0, 7) !== state.histMonthFilter) return false;
+      return true;
+    });
+
+    // Ordena pela data em que o treino aconteceu, não pela hora do registro.
+    filtered = filtered.slice().sort((a, b) => {
+      if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+      return b.createdAt - a.createdAt;
+    });
+
+    const totalMin = filtered.reduce((s, a) => s + a.minutes, 0);
+    wrap.appendChild(el('div', { class: 'hist-summary' }, [
+      el('b', {}, [String(filtered.length)]),
+      ' treino' + (filtered.length === 1 ? '' : 's') + ' · ',
+      el('b', {}, [fmtMinutes(totalMin)]),
+      ' no total',
+    ]));
+
+    if (!filtered.length) {
+      wrap.appendChild(el('div', { class: 'empty-state' }, [
+        el('div', { class: 'big' }, ['🔍']),
+        el('div', {}, ['Nenhum treino encontrado com esse filtro.']),
+      ]));
+      return wrap;
+    }
+
+    const list = el('div', {}, []);
+    filtered.slice(0, 200).forEach(act => {
+      const actInfo = ACTIVITIES.find(a => a.key === act.type) || ACTIVITIES[0];
+      const friend = state.friends[act.userIdx];
+      const name = friend ? friend.name : '???';
+      list.appendChild(el('div', { class: 'hist-item' }, [
+        el('div', { class: 'hist-icon' }, [actInfo.emoji]),
+        el('div', { class: 'hist-body' }, [
+          el('div', { class: 'hist-title' }, [name + ' · ' + actInfo.label]),
+          el('div', { class: 'hist-sub' }, [fmtMinutes(act.minutes)]),
+        ]),
+        el('div', { class: 'hist-time' }, [fmtDate(act.date)]),
+      ]));
+    });
+    wrap.appendChild(list);
+    return wrap;
+  }
+
+  function fmtTime(ts) {
+    return new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function renderChatFab() {
+    const unread = unreadChatCount();
+    const btn = el('div', { class: 'chat-fab', onclick: openChat }, ['💬']);
+    if (unread > 0) {
+      btn.appendChild(el('div', { class: 'chat-fab-badge' }, [unread > 9 ? '9+' : String(unread)]));
+    }
+    return el('div', { class: 'chat-fab-wrap' }, [btn]);
+  }
+
+  function renderChatHeader() {
+    return el('div', { class: 'chat-header' }, [
+      el('div', { class: 'chat-header-title' }, ['💬 Chat do Clube']),
+      el('div', { class: 'chat-close', onclick: closeChat }, ['✕']),
+    ]);
+  }
+
+  function renderChatMessages() {
+    const box = el('div', { class: 'chat-messages', id: 'chatMessages' }, []);
+    const msgs = state.messages;
+    if (!msgs.length) {
+      box.appendChild(el('div', { class: 'empty-state' }, [
+        el('div', { class: 'big' }, ['💬']),
+        el('div', {}, ['Nenhuma mensagem ainda. Manda a primeira!']),
+      ]));
+      return box;
+    }
+    msgs.forEach(m => {
+      const mine = m.from === state.loginUser;
+      const fromName = state.friends[m.from] ? state.friends[m.from].name : '???';
+      const row = el('div', { class: 'chat-row' + (mine ? ' mine' : '') }, []);
+      const bubble = el('div', { class: 'chat-bubble' + (mine ? ' mine' : '') }, []);
+      if (!mine) {
+        bubble.appendChild(el('div', { class: 'chat-bubble-name' }, [fromName]));
+      }
+      if (m.image) {
+        bubble.appendChild(el('img', {
+          class: 'chat-bubble-img', src: m.image,
+          onclick: () => { state.lightboxImage = m.image; render(); }
+        }, []));
+      }
+      if (m.text) {
+        bubble.appendChild(el('div', { class: 'chat-bubble-text' }, [m.text]));
+      }
+      bubble.appendChild(el('div', { class: 'chat-bubble-time' }, [fmtTime(m.createdAt)]));
+      row.appendChild(bubble);
+      box.appendChild(row);
+    });
+    return box;
+  }
+
+  function renderChatComposer() {
+    const bar = el('div', { class: 'chat-composer' }, []);
+    if (state.chatImage) {
+      bar.appendChild(el('div', { class: 'chat-img-preview' }, [
+        el('img', { src: state.chatImage }, []),
+        el('div', { class: 'chat-img-remove', onclick: () => { state.chatImage = null; render(); } }, ['✕']),
+      ]));
+    }
+    const row = el('div', { class: 'chat-composer-row' }, []);
+    row.appendChild(el('div', { class: 'chat-attach-btn', onclick: pickChatImage }, ['📷']));
+    row.appendChild(el('input', {
+      type: 'text', class: 'chat-input', placeholder: 'Escreva uma mensagem...',
+      value: state.chatText,
+      oninput: (e) => { state.chatText = e.target.value; },
+      onkeydown: (e) => { if (e.key === 'Enter') sendChatMessage(); },
+    }));
+    const canSend = !!(state.chatText.trim() || state.chatImage);
+    row.appendChild(el('div', {
+      class: 'chat-send-btn' + (canSend ? '' : ' disabled'),
+      onclick: () => { if (canSend) sendChatMessage(); }
+    }, ['➤']));
+    bar.appendChild(row);
+    return bar;
+  }
+
+  function renderChatPanel() {
+    const overlay = el('div', {
+      class: 'chat-overlay',
+      onclick: (e) => { if (e.target === overlay) closeChat(); }
+    }, []);
+    const panel = el('div', { class: 'chat-panel' }, [
+      renderChatHeader(),
+      renderChatMessages(),
+      renderChatComposer(),
+    ]);
+    overlay.appendChild(panel);
+    return overlay;
+  }
+
+  function renderLightbox() {
+    return el('div', {
+      class: 'lightbox-overlay',
+      onclick: () => { state.lightboxImage = null; render(); }
+    }, [
+      el('img', { class: 'lightbox-img', src: state.lightboxImage }, []),
+    ]);
+  }
+
+  function renderBottomNav() {
+    const tabs = [
+      { key: 'ranking', label: 'Ranking', icon: '🏆' },
+      { key: 'registrar', label: 'Treinar', icon: '➕' },
+      { key: 'historico', label: 'Histórico', icon: '📋' },
+    ];
+    const nav = el('div', { class: 'bottom-nav' }, []);
+    tabs.forEach(t => {
+      nav.appendChild(el('div', {
+        class: 'nav-btn' + (state.tab === t.key ? ' active' : ''),
+        onclick: () => { state.tab = t.key; render(); }
+      }, [
+        el('div', { class: 'icon' }, [t.icon]),
+        el('div', {}, [t.label]),
+      ]));
+    });
+    return nav;
+  }
+
+  function renderSettingsModal() {
+    const overlay = el('div', {
+      class: 'modal-overlay',
+      onclick: (e) => { if (e.target === overlay) { state.showSettings = false; render(); } }
+    }, []);
+    const sheet = el('div', { class: 'modal-sheet' }, []);
+    sheet.appendChild(el('div', { class: 'modal-title' }, ['Cadastro do clube']));
+    sheet.appendChild(el('div', { class: 'modal-subtitle' }, ['Defina o nome e o e-mail de login de cada um dos 5.']));
+    state.friends.forEach((f, idx) => {
+      const block = el('div', { class: 'friend-edit-block' }, []);
+      block.appendChild(el('div', { class: 'fld-label' }, ['Nome ' + (idx+1)]));
+      block.appendChild(el('input', {
+        type: 'text', value: f.name, placeholder: 'Nome',
+        oninput: (e) => { state.friends[idx].name = e.target.value; }
+      }));
+      block.appendChild(el('div', { class: 'fld-label' }, ['E-mail de login']));
+      block.appendChild(el('input', {
+        type: 'email', value: f.email, placeholder: 'email@exemplo.com',
+        oninput: (e) => { state.friends[idx].email = e.target.value; }
+      }));
+      sheet.appendChild(block);
+    });
+    sheet.appendChild(el('button', {
+      class: 'modal-close',
+      onclick: async () => {
+        state.friends = state.friends.map((f, i) => ({
+          name: (f.name || '').trim() || DEFAULT_FRIENDS[i].name,
+          email: (f.email || '').trim(),
+        }));
+        await saveFriends();
+        state.showSettings = false;
+        render();
+      }
+    }, ['Salvar']));
+    overlay.appendChild(sheet);
+    return overlay;
+  }
+
+  function renderSwitchUserModal() {
+    const overlay = el('div', {
+      class: 'modal-overlay',
+      onclick: (e) => { if (e.target === overlay) { state.showSwitchUser = false; render(); } }
+    }, []);
+    const sheet = el('div', { class: 'modal-sheet' }, []);
+    sheet.appendChild(el('div', { class: 'modal-title' }, ['Sua conta']));
+    sheet.appendChild(el('div', { class: 'modal-subtitle' }, [
+      'Conectado como ' + state.friends[state.loginUser].name + '.'
+    ]));
+    sheet.appendChild(el('button', {
+      class: 'modal-logout',
+      onclick: doLogout,
+    }, ['Sair e trocar de e-mail']));
+    overlay.appendChild(sheet);
+    return overlay;
+  }
+
+  function render() {
+    const root = document.getElementById('root');
+    root.innerHTML = '';
+    if (!state.loaded) {
+      root.appendChild(el('div', { class: 'loading-screen' }, ['Carregando o clube…']));
+      return;
+    }
+    if (state.loginUser === null) {
+      root.appendChild(renderLogin());
+      if (state.showSettings) root.appendChild(renderSettingsModal());
+      return;
+    }
+    root.appendChild(renderHeader());
+    const content = el('div', { class: 'content' }, []);
+    if (state.tab === 'registrar') content.appendChild(renderRegistrar());
+    if (state.tab === 'ranking') content.appendChild(renderRanking());
+    if (state.tab === 'historico') content.appendChild(renderHistorico());
+    root.appendChild(content);
+    root.appendChild(renderChatFab());
+    root.appendChild(renderBottomNav());
+    root.appendChild(el('div', { id: 'toast', class: 'toast' }, []));
+    if (state.showSettings) root.appendChild(renderSettingsModal());
+    if (state.showSwitchUser) root.appendChild(renderSwitchUserModal());
+    if (state.chatOpen) root.appendChild(renderChatPanel());
+    if (state.lightboxImage) root.appendChild(renderLightbox());
+  }
+
+  loadData();
+})();
+</script>
