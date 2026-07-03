@@ -1,4 +1,12 @@
 <!-- Clube da Luta -->
+ <!DOCTYPE html>
+ <html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clube da Luta</title>
+<body>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -48,7 +56,7 @@
 
   /* LOGIN SCREEN */
   .login-screen {
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -772,7 +780,9 @@
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh; color: var(--text-dim); font-size: 14px;
   }
-</style>
+  </style>
+</head>
+<body>
 
 <div id="root" class="app-root">
   <div class="loading-screen">Carregando o clube…</div>
@@ -1626,3 +1636,6 @@ const db = getFirestore(fbApp);
   loadData();
 })();
 </script>
+
+</body>
+</html>
