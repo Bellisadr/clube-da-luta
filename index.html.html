@@ -782,7 +782,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore, doc, getDoc, setDoc,
-  collection, addDoc, getDocs, query, orderBy, onSnapshot
+  collection, addDoc, getDocs, query, orderBy, limit, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ⚠️ COLE AQUI o firebaseConfig copiado do console do Firebase (Configurações do projeto > Seus apps)
@@ -892,7 +892,8 @@ const db = getFirestore(fbApp);
     const ls = loadLocal('lastSeenChat');
     if (ls) state.lastSeenChat = parseInt(ls, 10) || 0;
 
-    // Escuta em tempo real: treinos e mensagens atualizam sozinhos pra todo mundo
+    // Escuta em tempo real: treinos e mensagens atualizam sozinhos pra todo mundo.
+    // O chat só mostra as últimas 80 mensagens na tela (nada é apagado do banco).
     onSnapshot(collection(db, 'activities'), snap => {
       state.activities = snap.docs
         .map(d => ({ id: d.id, ...d.data() }))
@@ -900,8 +901,8 @@ const db = getFirestore(fbApp);
       if (state.loaded) render();
     }, err => console.error('erro ao ouvir treinos', err));
 
-    onSnapshot(query(collection(db, 'messages'), orderBy('createdAt', 'asc')), snap => {
-      state.messages = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    onSnapshot(query(collection(db, 'messages'), orderBy('createdAt', 'desc'), limit(80)), snap => {
+      state.messages = snap.docs.map(d => ({ id: d.id, ...d.data() })).reverse();
       if (state.loaded) render();
       const box = document.getElementById('chatMessages');
       if (box) box.scrollTop = box.scrollHeight;
@@ -1480,13 +1481,18 @@ const db = getFirestore(fbApp);
     row.appendChild(el('input', {
       type: 'text', class: 'chat-input', placeholder: 'Escreva uma mensagem...',
       value: state.chatText,
-      oninput: (e) => { state.chatText = e.target.value; },
+      oninput: (e) => {
+        state.chatText = e.target.value;
+        const btn = document.getElementById('chatSendBtn');
+        if (btn) btn.classList.toggle('disabled', !(state.chatText.trim() || state.chatImage));
+      },
       onkeydown: (e) => { if (e.key === 'Enter') sendChatMessage(); },
     }));
     const canSend = !!(state.chatText.trim() || state.chatImage);
     row.appendChild(el('div', {
+      id: 'chatSendBtn',
       class: 'chat-send-btn' + (canSend ? '' : ' disabled'),
-      onclick: () => { if (canSend) sendChatMessage(); }
+      onclick: () => { if (state.chatText.trim() || state.chatImage) sendChatMessage(); }
     }, ['➤']));
     bar.appendChild(row);
     return bar;
