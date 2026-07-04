@@ -823,7 +823,7 @@ const db = getFirestore(fbApp);
     { key: 'jiu', label: 'Jiu-Jitsu', emoji: '🥋', color: 'var(--jiu)' },
     { key: 'muaythai', label: 'Muay Thai', emoji: '🥊', color: 'var(--muaythai)' },
     { key: 'academia', label: 'Academia', emoji: '🏋️', color: 'var(--academia)' },
-    { key: 'corrida', label: 'Corrida', emoji: '🏃', color: 'var(--corrida)' },
+    { key: 'corrida/bike', label: 'Corrida/bike', emoji: '🏃', color: 'var(--corrida/bike)' },
     { key: 'futebol', label: 'Futebol', emoji: '⚽', color: 'var(--futebol)' },
     { key: 'natacao', label: 'Surf/Natação', emoji: '🏄', color: 'var(--natacao)' },
   ];
@@ -896,9 +896,10 @@ const db = getFirestore(fbApp);
   async function loadData() {
     try {
       const snap = await getDoc(doc(db, 'meta', 'friends'));
-      if (snap.exists() && snap.data().list) state.friends = snap.data().list;
+      if (snap.exists() && snap.data().list) {
+        state.friends = snap.data().list.slice(0, DEFAULT_FRIENDS.length);
+      }
     } catch(e) { console.error('erro ao carregar amigos', e); }
-
     try {
       const u = loadLocal('loginEmail');
       if (u) {
@@ -1565,7 +1566,7 @@ const db = getFirestore(fbApp);
     }, []);
     const sheet = el('div', { class: 'modal-sheet' }, []);
     sheet.appendChild(el('div', { class: 'modal-title' }, ['Cadastro do clube']));
-    sheet.appendChild(el('div', { class: 'modal-subtitle' }, ['Defina o nome e o e-mail de login de cada um dos 5.']));
+    sheet.appendChild(el('div', { class: 'modal-subtitle' }, ['Defina o nome e o e-mail de login de cada um dos 4.']));
     state.friends.forEach((f, idx) => {
       const block = el('div', { class: 'friend-edit-block' }, []);
       block.appendChild(el('div', { class: 'fld-label' }, ['Nome ' + (idx+1)]));
