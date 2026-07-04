@@ -1,11 +1,18 @@
 <!-- Clube da Luta -->
- <!DOCTYPE html>
- <html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clube da Luta</title>
-<body>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#9e1b1b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Clube da Luta">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -27,8 +34,10 @@
     --muaythai: #ff8a3d;
     --academia: #e8b23d;
     --corrida: #6effb0;
+    --bike: #ff6ec7;
     --futebol: #b48cff;
-    --natacao: #4dd0e1;
+    --surf: #4dd0e1;
+    --natacao: #7fa8ff;
     --danger: #ff5a5f;
     --radius: 18px;
   }
@@ -38,10 +47,10 @@
   html, body {
     margin: 0;
     padding: 0;
-    background-color: var(--bg); /* Garante que o fundo fora do app-root também seja escuro */
+    background-color: var(--bg);
     width: 100%;
     height: 100%;
-    overflow-x: hidden; /* Evita rolagem horizontal acidental no celular */
+    overflow-x: hidden;
   }
 
   .app-root {
@@ -63,7 +72,6 @@
     font-weight: 400;
   }
 
-  /* LOGIN SCREEN */
   .login-screen {
     flex: 1;
     display: flex;
@@ -142,7 +150,6 @@
     line-height: 1.5;
   }
 
-  /* HEADER */
   .header {
     padding: 20px 20px 14px;
     display: flex;
@@ -198,7 +205,6 @@
   }
   .user-chip .uname { font-size: 12px; font-weight: 600; }
 
-  /* BELT BANNER */
   .belt-banner {
     margin: 18px 16px 4px;
     border-radius: var(--radius);
@@ -249,7 +255,6 @@
     padding: 4px 2px;
   }
 
-  /* TABS CONTENT */
   .content { padding: 18px 16px 8px; flex: 1; }
   .section-title {
     font-size: 21px;
@@ -257,7 +262,6 @@
     margin: 4px 0 12px;
   }
 
-  /* REGISTRAR - logged user banner */
   .reg-user-banner {
     display: flex;
     align-items: center;
@@ -283,7 +287,6 @@
   .reg-user-banner .txt .l1 { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
   .reg-user-banner .txt .l2 { font-size: 15px; font-weight: 700; }
 
-  /* ACTIVITY GRID */
   .activity-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -309,7 +312,6 @@
   }
   .activity-card.selected .name { color: var(--text); }
 
-  /* DURATION */
   .field-label {
     font-size: 12px;
     text-transform: uppercase;
@@ -374,7 +376,6 @@
   }
   .hist-summary b { color: var(--text); }
 
-  /* CHAT FLUTUANTE */
   .chat-fab-wrap {
     position: fixed;
     bottom: 92px;
@@ -609,11 +610,10 @@
     transition: all 0.25s ease;
     pointer-events: none;
     white-space: nowrap;
-    z-index: 50;
+    z-index: 300;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* RANKING */
   .toggle-row {
     display: flex;
     background: var(--card);
@@ -682,7 +682,6 @@
   }
   .empty-state .big { font-size: 34px; margin-bottom: 8px; }
 
-  /* HISTORY */
   .hist-item {
     display: flex;
     align-items: center;
@@ -703,7 +702,6 @@
   .hist-sub { font-size: 11.5px; color: var(--text-dim); margin-top: 2px; }
   .hist-time { font-size: 12.5px; color: var(--text-dim); white-space: nowrap; }
 
-  /* BOTTOM NAV */
   .bottom-nav {
     position: fixed;
     bottom: 0; left: 50%;
@@ -733,7 +731,6 @@
   .nav-btn .icon { font-size: 20px; }
   .nav-btn.active { color: var(--belt-a); }
 
-  /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.65);
@@ -784,27 +781,47 @@
     color: var(--text-dim);
     font-weight: 600;
   }
+  .modal-delete {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--danger);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--danger);
+    font-weight: 700;
+  }
+
+  .hist-item-mine { cursor: pointer; }
+  .hist-item-mine:active { background: rgba(255,255,255,0.04); }
+  .hist-edit-hint {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
 
   .loading-screen {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh; color: var(--text-dim); font-size: 14px;
   }
-  </style>
+</style>
 </head>
 <body>
 
 <div id="root" class="app-root">
   <div class="loading-screen">Carregando o clube…</div>
 </div>
+<div id="toast" class="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore, doc, getDoc, setDoc,
-  collection, addDoc, getDocs, query, orderBy, limit, onSnapshot
+  collection, addDoc, getDocs, query, orderBy, limit, onSnapshot, updateDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ⚠️ COLE AQUI o firebaseConfig copiado do console do Firebase (Configurações do projeto > Seus apps)
 const firebaseConfig = {
   apiKey: "AIzaSyB7QsV_EhQHCVPVmqrOyrR9dMiWf76GecE",
   authDomain: "clube-da-luta-9f3b5.firebaseapp.com",
@@ -823,9 +840,11 @@ const db = getFirestore(fbApp);
     { key: 'jiu', label: 'Jiu-Jitsu', emoji: '🥋', color: 'var(--jiu)' },
     { key: 'muaythai', label: 'Muay Thai', emoji: '🥊', color: 'var(--muaythai)' },
     { key: 'academia', label: 'Academia', emoji: '🏋️', color: 'var(--academia)' },
-    { key: 'corrida/bike', label: 'Corrida/bike', emoji: '🏃', color: 'var(--corrida/bike)' },
+    { key: 'corrida', label: 'Corrida', emoji: '🏃', color: 'var(--corrida)' },
+    { key: 'bike', label: 'Bike', emoji: '🚴', color: 'var(--bike)' },
     { key: 'futebol', label: 'Futebol', emoji: '⚽', color: 'var(--futebol)' },
-    { key: 'natacao', label: 'Surf/Natação', emoji: '🏄', color: 'var(--natacao)' },
+    { key: 'surf', label: 'Surf', emoji: '🏄', color: 'var(--surf)' },
+    { key: 'natacao', label: 'Natação', emoji: '🏊', color: 'var(--natacao)' },
   ];
   const DEFAULT_FRIENDS = [
     { name: 'Amigo 1', email: '' },
@@ -858,6 +877,10 @@ const db = getFirestore(fbApp);
     chatSending: false,
     lastSeenChat: 0,
     lightboxImage: null,
+    editingActivity: null,
+    editActType: null,
+    editActMinutes: '',
+    editActDate: '',
   };
 
   function todayStr() {
@@ -911,8 +934,6 @@ const db = getFirestore(fbApp);
     const ls = loadLocal('lastSeenChat');
     if (ls) state.lastSeenChat = parseInt(ls, 10) || 0;
 
-    // Escuta em tempo real: treinos e mensagens atualizam sozinhos pra todo mundo.
-    // O chat só mostra as últimas 80 mensagens na tela (nada é apagado do banco).
     onSnapshot(collection(db, 'activities'), snap => {
       state.activities = snap.docs
         .map(d => ({ id: d.id, ...d.data() }))
@@ -949,7 +970,8 @@ const db = getFirestore(fbApp);
     if (!t) return;
     t.textContent = msg;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 1800);
+    clearTimeout(t._hideTimer);
+    t._hideTimer = setTimeout(() => t.classList.remove('show'), 2200);
   }
 
   async function doLogin() {
@@ -998,10 +1020,61 @@ const db = getFirestore(fbApp);
       return;
     }
     const actInfo = ACTIVITIES.find(a => a.key === entry.type);
-    showToast('⭐ Treino registrado! ' + actInfo.emoji + ' ' + actInfo.label);
     state.selectedActivity = null;
     state.customDuration = '';
     render();
+    showToast('⭐ Treino registrado! ' + actInfo.emoji + ' ' + actInfo.label);
+  }
+
+  function openEditActivity(act) {
+    state.editingActivity = act;
+    state.editActType = act.type;
+    state.editActMinutes = String(act.minutes);
+    state.editActDate = act.date;
+    render();
+  }
+
+  function closeEditActivity() {
+    state.editingActivity = null;
+    render();
+  }
+
+  async function saveEditActivity() {
+    const act = state.editingActivity;
+    if (!act) return;
+    const minutes = parseInt(state.editActMinutes, 10);
+    if (!state.editActType || !minutes || minutes <= 0 || !state.editActDate) {
+      showToast('Preencha tipo, duração e data.');
+      return;
+    }
+    try {
+      await updateDoc(doc(db, 'activities', act.id), {
+        type: state.editActType,
+        minutes: minutes,
+        date: state.editActDate,
+      });
+      state.editingActivity = null;
+      render();
+      showToast('✏️ Treino atualizado!');
+    } catch(e) {
+      console.error('erro ao editar treino', e);
+      showToast('Erro ao salvar edição.');
+    }
+  }
+
+  async function deleteEditActivity() {
+    const act = state.editingActivity;
+    if (!act) return;
+    if (!confirm('Excluir esse treino? Essa ação não pode ser desfeita.')) return;
+    try {
+      await deleteDoc(doc(db, 'activities', act.id));
+      state.editingActivity = null;
+      render();
+      showToast('Treino excluído.');
+    } catch(e) {
+      console.error('erro ao excluir treino', e);
+      showToast('Erro ao excluir treino.');
+    }
   }
 
   function compressImage(file) {
@@ -1393,7 +1466,6 @@ const db = getFirestore(fbApp);
       return true;
     });
 
-    // Ordena pela data em que o treino aconteceu, não pela hora do registro.
     filtered = filtered.slice().sort((a, b) => {
       if (a.date !== b.date) return a.date < b.date ? 1 : -1;
       return b.createdAt - a.createdAt;
@@ -1420,17 +1492,65 @@ const db = getFirestore(fbApp);
       const actInfo = ACTIVITIES.find(a => a.key === act.type) || ACTIVITIES[0];
       const friend = state.friends[act.userIdx];
       const name = friend ? friend.name : '???';
-      list.appendChild(el('div', { class: 'hist-item' }, [
+      const isMine = act.userIdx === state.loginUser;
+      const itemAttrs = { class: 'hist-item' + (isMine ? ' hist-item-mine' : '') };
+      if (isMine) itemAttrs.onclick = () => openEditActivity(act);
+      list.appendChild(el('div', itemAttrs, [
         el('div', { class: 'hist-icon' }, [actInfo.emoji]),
         el('div', { class: 'hist-body' }, [
           el('div', { class: 'hist-title' }, [name + ' · ' + actInfo.label]),
           el('div', { class: 'hist-sub' }, [fmtMinutes(act.minutes)]),
         ]),
         el('div', { class: 'hist-time' }, [fmtDate(act.date)]),
+        isMine ? el('div', { class: 'hist-edit-hint' }, ['✎']) : null,
       ]));
     });
     wrap.appendChild(list);
     return wrap;
+  }
+
+  function renderEditActivityModal() {
+    const overlay = el('div', {
+      class: 'modal-overlay',
+      onclick: (e) => { if (e.target === overlay) closeEditActivity(); }
+    }, []);
+    const sheet = el('div', { class: 'modal-sheet' }, []);
+    sheet.appendChild(el('div', { class: 'modal-title' }, ['Editar treino']));
+    sheet.appendChild(el('div', { class: 'modal-subtitle' }, ['Só você pode editar ou excluir os seus treinos.']));
+
+    sheet.appendChild(el('div', { class: 'field-label' }, ['Qual foi o treino?']));
+    const grid = el('div', { class: 'activity-grid' }, []);
+    ACTIVITIES.forEach(a => {
+      const selected = state.editActType === a.key;
+      grid.appendChild(el('div', {
+        class: 'activity-card' + (selected ? ' selected' : ''),
+        style: selected ? ('--sel-color:' + a.color) : '',
+        onclick: () => { state.editActType = a.key; render(); }
+      }, [
+        el('div', { class: 'emoji' }, [a.emoji]),
+        el('div', { class: 'name' }, [a.label]),
+      ]));
+    });
+    sheet.appendChild(grid);
+
+    sheet.appendChild(el('div', { class: 'field-label' }, ['Duração (minutos)']));
+    sheet.appendChild(el('input', {
+      type: 'number', min: '1', value: state.editActMinutes,
+      oninput: (e) => { state.editActMinutes = e.target.value; }
+    }));
+
+    sheet.appendChild(el('div', { class: 'field-label' }, ['Data']));
+    sheet.appendChild(el('input', {
+      type: 'date', value: state.editActDate,
+      oninput: (e) => { state.editActDate = e.target.value; }
+    }));
+
+    sheet.appendChild(el('button', { class: 'modal-close', onclick: saveEditActivity }, ['Salvar alterações']));
+    sheet.appendChild(el('button', { class: 'modal-delete', onclick: deleteEditActivity }, ['Excluir treino']));
+    sheet.appendChild(el('button', { class: 'modal-logout', onclick: closeEditActivity }, ['Cancelar']));
+
+    overlay.appendChild(sheet);
+    return overlay;
   }
 
   function fmtTime(ts) {
@@ -1635,11 +1755,11 @@ const db = getFirestore(fbApp);
     root.appendChild(content);
     root.appendChild(renderChatFab());
     root.appendChild(renderBottomNav());
-    root.appendChild(el('div', { id: 'toast', class: 'toast' }, []));
     if (state.showSettings) root.appendChild(renderSettingsModal());
     if (state.showSwitchUser) root.appendChild(renderSwitchUserModal());
     if (state.chatOpen) root.appendChild(renderChatPanel());
     if (state.lightboxImage) root.appendChild(renderLightbox());
+    if (state.editingActivity) root.appendChild(renderEditActivityModal());
   }
 
   loadData();
