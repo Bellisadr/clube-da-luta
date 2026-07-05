@@ -881,6 +881,7 @@ const db = getFirestore(fbApp);
     editActType: null,
     editActMinutes: '',
     editActDate: '',
+    notifPermission: (typeof Notification !== 'undefined') ? Notification.permission : 'unsupported',
   };
 
   function todayStr() {
@@ -934,10 +935,23 @@ const db = getFirestore(fbApp);
     const ls = loadLocal('lastSeenChat');
     if (ls) state.lastSeenChat = parseInt(ls, 10) || 0;
 
+    let knownActivityIds = null;
     onSnapshot(collection(db, 'activities'), snap => {
-      state.activities = snap.docs
-        .map(d => ({ id: d.id, ...d.data() }))
-        .sort((a, b) => b.createdAt - a.createdAt);
+      const fresh = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      if (knownActivityIds === null) {
+        // primeira carga: só guarda os ids, sem notificar nada retroativo
+        knownActivityIds = new Set(fresh.map(a => a.id));
+      } else {
+        fresh.forEach(act => {
+          if (!knownActivityIds.has(act.id) && act.userIdx !== state.loginUser) {
+            notifyNewTraining(act);
+          }
+        });
+        knownActivityIds = new Set(fresh.map(a => a.id));
+      }
+
+      state.activities = fresh.sort((a, b) => b.createdAt - a.createdAt);
       if (state.loaded) render();
     }, err => console.error('erro ao ouvir treinos', err));
 
@@ -950,6 +964,32 @@ const db = getFirestore(fbApp);
 
     state.loaded = true;
     render();
+  }
+
+  function requestNotifPermission() {
+    if (typeof Notification === 'undefined') {
+      showToast('Seu navegador não suporta notificações.');
+      return;
+    }
+    Notification.requestPermission().then(perm => {
+      state.notifPermission = perm;
+      render();
+      if (perm === 'granted') showToast('🔔 Notificações ativadas!');
+    });
+  }
+
+  function notifyNewTraining(act) {
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+    const friend = state.friends[act.userIdx];
+    const name = friend ? friend.name : 'Alguém';
+    const actInfo = ACTIVITIES.find(a => a.key === act.type) || ACTIVITIES[0];
+    try {
+      new Notification('🏆 ' + name + ' treinou!', {
+        body: actInfo.emoji + ' ' + actInfo.label + ' · ' + fmtMinutes(act.minutes),
+        icon: 'icon-192.png',
+        tag: 'treino-' + act.id,
+      });
+    } catch(e) { /* navegador pode bloquear silenciosamente */ }
   }
 
   async function saveFriends() {
@@ -1685,6 +1725,19 @@ const db = getFirestore(fbApp);
       onclick: (e) => { if (e.target === overlay) { state.showSettings = false; render(); } }
     }, []);
     const sheet = el('div', { class: 'modal-sheet' }, []);
+    sheet.appendChild(el('div', { class: 'modal-title' }, ['Notificações']));
+    let notifText = 'Ative para saber quando alguém do clube treinar.';
+    if (state.notifPermission === 'granted') notifText = '🔔 Ativadas neste aparelho.';
+    if (state.notifPermission === 'denied') notifText = 'Bloqueadas no navegador. Ative manualmente nas configurações do site.';
+    if (state.notifPermission === 'unsupported') notifText = 'Seu navegador não suporta notificações.';
+    sheet.appendChild(el('div', { class: 'modal-subtitle' }, [notifText]));
+    if (state.notifPermission === 'default') {
+      sheet.appendChild(el('button', {
+        class: 'modal-close', style: 'margin-bottom:20px',
+        onclick: requestNotifPermission
+      }, ['🔔 Ativar notificações']));
+    }
+
     sheet.appendChild(el('div', { class: 'modal-title' }, ['Cadastro do clube']));
     sheet.appendChild(el('div', { class: 'modal-subtitle' }, ['Defina o nome e o e-mail de login de cada um dos 4.']));
     state.friends.forEach((f, idx) => {
